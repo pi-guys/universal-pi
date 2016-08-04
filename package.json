@@ -1,0 +1,23 @@
+{
+  "name": "universal-pi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pi-guys/universal-pi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pi-guys/universal-pi/issues"
+  },
+  "homepage": "https://github.com/pi-guys/universal-pi#readme"
+}
