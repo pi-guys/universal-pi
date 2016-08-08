@@ -8,26 +8,32 @@ lirc.init();
 let router = module.exports = exports = new Router();
 
 router.get('/all', (req, res) => {
-  // if(lirc.remotes === { 'irsend: command not found': [ 'found' ] }){
-  //   console.log('No remotes exist on server.');
-  //   return res.sendError(AppError.error400('No remotes exist on server.'));
-  // }
-  console.log(lirc.remotes);
+  if (!lirc.remotes.Vizio || lirc.remotes.Vizio === null) {
+    console.log('No remotes exist on this server.');
+    return res.sendError(AppError.error404('No remotes found.'));
+  }
   return res.status(200).json(lirc.remotes);
 });
 
-router.get('/:remote', (req, res) => {
-  if (!req.params.remote) {
+router.get('/:name', (req, res) => {
+  console.log(lirc.remotes[req.params.remote]);
+  if (!req.params.name || req.params.name === null) {
     return res.sendError(AppError.error400('Remote does not yet exist on server.'));
   }
-  console.log(lirc.remotes[req.params.remote]);
+  if (lirc.remotes[req.params.remote] === undefined || null) {
+    return res.sendError(AppError.error404('No remote found with that name.'));
+  }
   return res.status(200).json(lirc.remotes[req.params.remote]);
 });
 
-router.post('/remote/:name/:button', (req, res) => {
+router.post('/:name/:button', (req, res) => {
   if (!req.params.name) {
     return res.sendError(AppError.error400('Invalid remote name.'));
-  } else if (!req.params.button) {
+  }
+  if (req.params.name !== lirc.remotes[req.params.name]) {
+    return res.sendError(AppError.error404('Remote not found.'));
+  }
+  if (!req.params.button) {
     return res.sendError(AppError.error400('Invalid button for specified remote.'));
   }
   lirc.irsend.send_once(req.params.name, req.params.button, () => {
@@ -36,6 +42,6 @@ router.post('/remote/:name/:button', (req, res) => {
   });
 });
 
-router.all('/', (req, res, next) => {
-  next(AppError.error404('Please specify a remote to use by setting your endpoint to "/api/remote-name".'));
+router.all((req, res, next) => {
+  next(AppError.error400('Please specify a remote to use by setting your endpoint to "/api/remote/remote-name".'));
 });
