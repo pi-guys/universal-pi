@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/pi-guys/universal-pi/issues"
   },
-  "homepage": "https://github.com/pi-guys/universal-pi#readme"
+  "homepage": "https://github.com/pi-guys/universal-pi#readme",
+  "dependencies": {
+    "onoff": "^1.1.1"
+  }
 }
