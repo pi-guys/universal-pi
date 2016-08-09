@@ -1,5 +1,4 @@
 'use strict';
-
 const Router = require('express').Router;
 const lirc = require('lirc_node');
 const AppError = require('../lib/app_error.js');
