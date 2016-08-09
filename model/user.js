@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 
 let userSchema = mongoose.Schema({
   username: {type: String, required: true, unique: true},
-  password: {type: String, required: true}
+  password: {type: String, required: true},
+  group: {type: String, default: 'codefellows'}
 });
 
 userSchema.methods.generateHash = function(password) {
@@ -17,13 +18,15 @@ userSchema.methods.generateHash = function(password) {
     });
   });
 };
+
 userSchema.methods.comparePassword = function(password){
   return new Promise((resolve, reject) => {
-    bcrypt.compare(password, this.basic.password, (err, data) =>{
+    bcrypt.compare(password, this.password, (err, data) =>{
       if (err) return reject(err);
       if (data === false) return reject(new Error('Password did not match'));
       resolve({token: jwt.sign({idd: this.username}, process.env.APP_SECRET)});
     });
   });
 };
+
 module.exports = exports = mongoose.model('User', userSchema);
