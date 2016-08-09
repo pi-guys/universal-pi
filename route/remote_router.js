@@ -2,6 +2,8 @@
 const Router = require('express').Router;
 const lirc = require('lirc_node');
 const AppError = require('../lib/app_error.js');
+const server = require('../lib/_server');
+const io = require('socket.io')(server);
 lirc.init();
 
 let router = module.exports = exports = new Router();
@@ -26,22 +28,26 @@ router.get('/:name', (req, res) => {
 });
 
 router.post('/:name/:button', (req, res) => {
-  if (!req.params.name) {
-    return res.sendError(AppError.error400('Invalid remote name.'));
-  }
-  if (req.params.name !== lirc.remotes[req.params.name]) {
-    return res.sendError(AppError.error400('Remote not found.'));
-  }
-  if (!lirc.remotes[req.params.name].indexOf(req.params.button)) {
-    return res.sendError(AppError.error400('Button not found.'));
-  }
-  if (!req.params.button) {
-    return res.sendError(AppError.error400('Invalid button for specified remote.'));
-  }
-  lirc.irsend.send_once(req.params.name, req.params.button, () => {
-    console.log('sent ' + req.params.button + ' to ' + req.params.name + '.');
-    return res.status(200).send('sent ' + req.params.button + ' to ' + req.params.name + '.');
-  });
+  console.log(io);
+  io.emit('time', new Date().toTimeString());
+  // if (!req.params.name) {
+  //   return res.sendError(AppError.error400('Invalid remote name.'));
+  // }
+  // if (req.params.name !== lirc.remotes[req.params.name]) {
+  //   return res.sendError(AppError.error400('Remote not found.'));
+  // }
+  // if (!lirc.remotes[req.params.name].indexOf(req.params.button)) {
+  //   return res.sendError(AppError.error400('Button not found.'));
+  // }
+  // if (!req.params.button) {
+  //   return res.sendError(AppError.error400('Invalid button for specified remote.'));
+  // }
+  // lirc.irsend.send_once(req.params.name, req.params.button, () => {
+  console.log('sent ' + req.params.button + ' to ' + req.params.name + '.');
+  // io.emit('post', [req.params.name, req.params.button]);
+  // io.emit('time', new Date().toTimeString());
+  return res.status(200).send('sent ' + req.params.button + ' to ' + req.params.name + '.');
+  // });
 });
 
 router.all((req, res, next) => {
