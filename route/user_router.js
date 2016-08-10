@@ -6,7 +6,7 @@ const AppError = require('../lib/app_error');
 const User = require('../model/user');
 const BasicHTTP = require('../lib/basic_http');
 // const authzn = require('../lib/authorization');
-// const jwt_auth = require('../lib/jwt_auth');
+const jwtAuth = require('../lib/jwt_auth');
 
 let userRouter = module.exports = exports = Router();
 
@@ -31,6 +31,7 @@ userRouter.get('/signin', BasicHTTP, (req, res, next) => {
     if (err) {
       return AppError.error401('Authentication failed.');
     }
+    console.log(user);
     user.comparePassword(req.auth.password)
       .then(res.json.bind(res))
       .catch((err) => {
@@ -39,10 +40,9 @@ userRouter.get('/signin', BasicHTTP, (req, res, next) => {
   });
 });
 
-// authRouter.put('/addrole?:userid', jsonParser, jwt_auth, authzn(), (req, res, next) => {
-//   user.update({'_id': req.params.userid}, {$set: {role: req.body.role}})
-//   .then(res.json.bind(res), ErrorHandler(500, next, 'server'}));
-//
-// authrouter.get('/users', jsonParser, jwt_auth, authzn(), (req, res, next) => {
-//         user.find().then(res.json.bind(res), ErrorHandler(500, next, 'server error'));
-//     }));
+userRouter.delete('/:id', jsonParser, jwtAuth, (req, res, next) => {
+  User.remove({'_id': req.params.id}, (err, user) => {
+    if (err) next(err);
+    res.json(user);
+  });
+});
