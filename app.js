@@ -40,12 +40,12 @@ let update = function() {
   });
 };
 
-update();
-
-socket.on('time', (data) => {
-  console.log('time sent', data);
-  return exec('echo ' + data);
-});
+// update();
+//
+// socket.on('time', (data) => {
+//   console.log('time sent', data);
+//   return exec('echo ' + data);
+// });
 
 socket.on('post', (data) => {
   console.log('on post');
