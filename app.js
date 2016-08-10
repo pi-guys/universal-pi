@@ -10,6 +10,7 @@ console.log('running app.js');
 socket.on('update', (req, res) => {
   console.log('updating remotes');
   let remotes = lirc.remotes.name;
+  console.log(remotes);
   if (!remotes) {
     return res.send('No remotes found on Pi');
   }
