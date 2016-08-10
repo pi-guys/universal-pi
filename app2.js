@@ -2,7 +2,7 @@
 const socket = require('socket.io-client')('http://localhost:3000');
 const exec = require('child_process').exec;
 const Remote = require('../model/remote.js');
-const lirc = require('lirc-node');
+const lirc = require('lirc_node');
 lirc.init();
 
 socket.on('connection', (req, res) => {
