@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 let userSchema = mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
+  role: {type:String, default: 'basic'},
   group: {type: String, default: 'codefellows'}
 });
 
