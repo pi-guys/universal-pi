@@ -9,7 +9,6 @@ console.log('running app.js');
 
 let update = function() {
   console.log('updating remotes');
-  console.log(lirc.remotes);
   let remotes = lirc.remotes.name;
   console.log(remotes);
   if (!remotes) {
@@ -41,12 +40,12 @@ let update = function() {
   });
 };
 
-update();
-
-socket.on('time', (data) => {
-  console.log('time sent', data);
-  return exec('echo ' + data);
-});
+// update();
+//
+// socket.on('time', (data) => {
+//   console.log('time sent', data);
+//   return exec('echo ' + data);
+// });
 
 socket.on('post', (data) => {
   console.log('on post');
