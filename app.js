@@ -1,5 +1,5 @@
 'use strict';
-const socket = require('socket.io-client')('http://localhost:3000');
+const socket = require('socket.io-client')('https://universal-pi.herokuapp.com');
 const exec = require('child_process').exec;
 const Remote = require('./model/remote.js');
 const lirc = require('lirc_node');
