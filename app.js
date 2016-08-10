@@ -5,7 +5,7 @@ const Remote = require('../model/remote.js');
 const lirc = require('lirc_node');
 lirc.init();
 
-socket.on('connection', (req, res) => {
+socket.on('update', (req, res) => {
   let remotes = lirc.remotes.name;
   if (!remotes) {
     return res.send('No remotes found on Pi');
