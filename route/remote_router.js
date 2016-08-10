@@ -28,7 +28,3 @@ router.get('/:name', (req, res) => {
 router.all((req, res, next) => {
   next(AppError.error404('Please specify a remote to use by setting your endpoint to "/api/remote/remote-name".'));
 });
-
-router.all('/:name', (req,res,next)=>{
-  next(AppError.error404('Please specify a button for remote: ' + req.params.name + ', by setting your endpoint to "api/' + req.params.name + '/button-name".'));
-});

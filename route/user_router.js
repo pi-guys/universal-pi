@@ -6,7 +6,7 @@ const AppError = require('../lib/app_error');
 const User = require('../model/user');
 const BasicHTTP = require('../lib/basic_http');
 // const authzn = require('../lib/authorization');
-// const jwt_auth = require('../lib/jwt_auth');
+const jwtAuth = require('../lib/jwt_auth');
 
 let userRouter = module.exports = exports = Router();
 
@@ -15,8 +15,9 @@ userRouter.post('/signup', jsonParser, (req, res, next) => {
   newUser.username = req.body.username;
   newUser.generateHash(req.body.password)
     .then((tokenData) => {
-      newUser.save((err) => {
+      newUser.save((err, user) => {
         if (err) next(err);
+        console.log('new user + ' + user.toString());
         res.json(tokenData);
       });
     });
@@ -36,6 +37,13 @@ userRouter.get('/signin', BasicHTTP, (req, res, next) => {
       .catch((err) => {
         next(err);
       });
+  });
+});
+
+userRouter.delete('/:id', jwtAuth, (req, res, next) => {
+  User.remove({'_id': req.params.id}, (err, user) => {
+    if (err) next(err);
+    res.send('removed ' + user);
   });
 });
 
