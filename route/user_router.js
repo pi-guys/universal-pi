@@ -5,13 +5,16 @@ const jsonParser = require('body-parser').json();
 const AppError = require('../lib/app_error');
 const User = require('../model/user');
 const BasicHTTP = require('../lib/basic_http');
-// const authzn = require('../lib/authorization');
+const auth = require('../lib/authorization');
 const jwtAuth = require('../lib/jwt_auth');
 
 let userRouter = module.exports = exports = Router();
 
 userRouter.post('/signup', jsonParser, (req, res, next) => {
   let newUser = new User();
+  if (!req.body.username || !req.body.password) {
+    next(AppError.error400('A username and password field are required.'));
+  }
   newUser.username = req.body.username;
   newUser.generateHash(req.body.password)
     .then((tokenData) => {
@@ -26,12 +29,8 @@ userRouter.post('/signup', jsonParser, (req, res, next) => {
 userRouter.get('/signin', BasicHTTP, (req, res, next) => {
   console.log(req.auth.username);
   User.findOne({username: req.auth.username}, (err, user) => {
-    if (!user) {
-      return AppError.error401('Authentication failed.');
-    }
-    if (err) {
-      return AppError.error401('Authentication failed.');
-    }
+    if (!user) next(AppError.error401('Authentication failed.'));
+    if (err) next(AppError.error401('Authentication failed.'));
     user.comparePassword(req.auth.password)
       .then(res.json.bind(res))
       .catch((err) => {
@@ -40,10 +39,9 @@ userRouter.get('/signin', BasicHTTP, (req, res, next) => {
   });
 });
 
-userRouter.delete('/:id', jwtAuth, (req, res, next) => {
-  User.remove({'_id': req.params.id}, (err, user) => {
-    if (err) next(err);
-    res.send('removed ' + user);
+userRouter.delete('/:id', jwtAuth, auth, (req, res, next) => {
+  User.remove({'_id': req.params.id}, (user) => {
+    res.send(user);
   });
 });
 
