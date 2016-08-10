@@ -7,12 +7,12 @@ lirc.init();
 
 console.log('running app.js');
 
-let update = function(req, res, next) {
+let update = function() {
   console.log('updating remotes');
   let remotes = lirc.remotes.name;
   console.log(remotes);
   if (!remotes) {
-    return res.send('No remotes found on Pi');
+    return 'No remotes found on Pi';
   }
   Remote.find({
     'name': remotes
@@ -23,7 +23,7 @@ let update = function(req, res, next) {
         newItem = new Remote(lirc.remotes[newItem]);
         newItem.save((err, saved) => {
           if (err) return err;
-          res.send('Remote ' + saved + ' saved to database.');
+          return 'Remote ' + saved + ' saved to database.';
         });
       });
     }
@@ -34,7 +34,7 @@ let update = function(req, res, next) {
         'name': item
       }, lirc.remotes[item]), (err, updated) => {
         if (err) return err;
-        res.send('Remote ' + updated + ' updated in database.');
+        return 'Remote ' + updated + ' updated in database.';
       };
     });
   });
