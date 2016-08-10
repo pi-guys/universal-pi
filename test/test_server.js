@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/auth_test');
 app = require('express')();
 const authRouter = require('../route/auth_router');
 app.use('/api', authRouter);
-app.get('/api/jwt_auth', jwt_auth function(req, res){
+app.get('/api/jwt_auth', jwt_auth function(req, res) {
   res.json({msg: 'sucess!'});
 });
 
