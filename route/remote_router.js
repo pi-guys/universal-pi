@@ -19,7 +19,7 @@ router.get('/:name', (req, res) => {
   if (!req.params.name || req.params.name === null) {
     return res.sendError(AppError.error400('Remote does not yet exist on server.'));
   }
-  if (lirc.remotes[req.params.remote] === undefined || null) {
+  if (lirc.remotes[req.params.remote] === undefined || lirc.remotes[req.params.remote] === null) {
     return res.sendError(AppError.error400('No remote found with that name.'));
   }
   return res.status(200).json(lirc.remotes[req.params.remote]);
@@ -27,4 +27,8 @@ router.get('/:name', (req, res) => {
 
 router.all((req, res, next) => {
   next(AppError.error404('Please specify a remote to use by setting your endpoint to "/api/remote/remote-name".'));
+});
+
+router.all('/:name', (req,res,next)=>{
+  next(AppError.error404('Please specify a button for remote: ' + req.params.name + ', by setting your endpoint to "api/' + req.params.name + '/button-name".'));
 });
