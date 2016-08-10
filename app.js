@@ -7,7 +7,7 @@ lirc.init();
 
 console.log('running app.js');
 
-socket.on('update', (req, res) => {
+socket.on('connection', (req, res) => {
   console.log('updating remotes');
   let remotes = lirc.remotes.name;
   console.log(remotes);
