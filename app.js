@@ -9,6 +9,7 @@ console.log('running app.js');
 
 let update = function() {
   console.log('updating remotes');
+  console.log(lirc.remotes);
   let remotes = lirc.remotes.name;
   console.log(remotes);
   if (!remotes) {
