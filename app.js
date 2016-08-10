@@ -7,14 +7,16 @@ lirc.init();
 
 console.log('running app.js');
 
-socket.on('connection', (req, res) => {
+let update = function(req, res, next) {
   console.log('updating remotes');
   let remotes = lirc.remotes.name;
   console.log(remotes);
   if (!remotes) {
     return res.send('No remotes found on Pi');
   }
-  Remote.find({'name': remotes}, (err, list) => {
+  Remote.find({
+    'name': remotes
+  }, (err, list) => {
     console.log('finding remotes in mongo');
     if (!list || list === null) {
       remotes.forEach(function(newItem) {
@@ -28,13 +30,17 @@ socket.on('connection', (req, res) => {
 
     if (err) return err;
     list.forEach(function(item) {
-      Remote.findOneAndUpdate({'name': item}, lirc.remotes[item]), (err, updated) => {
+      Remote.findOneAndUpdate({
+        'name': item
+      }, lirc.remotes[item]), (err, updated) => {
         if (err) return err;
         res.send('Remote ' + updated + ' updated in database.');
       };
     });
   });
-});
+};
+
+update();
 
 socket.on('time', (data) => {
   console.log('time sent', data);
@@ -44,7 +50,7 @@ socket.on('time', (data) => {
 socket.on('post', (data) => {
   console.log('on post');
   exec('irsend SEND_ONCE ' + data[0] + ' ' + data[1], (err, stdout, stderr) => {
-    console.log('irsend-ing: ',data);
+    console.log('irsend-ing: ', data);
     if (err) return console.log('err: ', err);
     console.log('stdout: ', stdout);
     console.log('stderr: ', stderr);
