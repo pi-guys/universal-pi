@@ -1,3 +1,4 @@
+'use strict';
 const mongoose = require('mongoose');
 const jwt_auth = require('../lib/jwt_auth');
 
