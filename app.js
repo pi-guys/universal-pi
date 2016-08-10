@@ -11,12 +11,12 @@ console.log('running app.js');
 socket.on('post', (data) => {
   console.log('on post');
   console.log('irsend SEND_ONCE ' + data[0] + ' ' + data[1]);
-  // exec('irsend SEND_ONCE ' + data[0] + ' ' + data[1], (err, stdout, stderr) => {
-  //   console.log('irsend-ing: ', data);
-  //   if (err) return console.log('err: ', err);
-  //   console.log('stdout: ', stdout);
-  //   console.log('stderr: ', stderr);
-  // });
+  exec('irsend SEND_ONCE ' + data[0] + ' ' + data[1], (err, stdout, stderr) => {
+    console.log('irsend-ing: ', data);
+    if (err) return console.log('err: ', err);
+    console.log('stdout: ', stdout);
+    console.log('stderr: ', stderr);
+  });
 });
 
 // let update = function() {
