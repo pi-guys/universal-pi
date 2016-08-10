@@ -5,7 +5,7 @@ const jsonParser = require('body-parser').json();
 const AppError = require('../lib/app_error');
 const User = require('../model/user');
 const BasicHTTP = require('../lib/basic_http');
-// const authzn = require('../lib/authorization');
+const adminAuth = require('../lib/authorization');
 const jwtAuth = require('../lib/jwt_auth');
 
 let userRouter = module.exports = exports = Router();
@@ -40,7 +40,7 @@ userRouter.get('/signin', BasicHTTP, (req, res, next) => {
   });
 });
 
-userRouter.delete('/:id', jsonParser, jwtAuth, (req, res, next) => {
+userRouter.delete('/:id', jsonParser, jwtAuth, adminAuth(), (req, res, next) => {
   User.remove({'_id': req.params.id}, (err, user) => {
     if (err) next(err);
     res.json(user);
