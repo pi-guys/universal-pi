@@ -10,7 +10,7 @@ const server = require('./test_server');
 const baseUrl = 'localhost:5000/api';
 const User = require('../model/user');
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 process.env.APP_SECRET = 'testmenow';
 process.env.MONGODB_TEST = 'mongodb://localhost/dev_test';
