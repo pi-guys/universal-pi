@@ -21,7 +21,7 @@ All commands are requested through a heroku endpoint.  Provided a device is conf
 
   `curl https://universal-pi.herokuapp.com/api/remote/Vizio/KEY_POWER`
 
-- For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command
+  For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command
 
   `node c key Vizio power`
 
@@ -34,7 +34,8 @@ All commands are requested through a heroku endpoint.  Provided a device is conf
   An example list of all buttons configured to this device can be found in the project at `programmed_buttons.txt`, this listing mirrors the `/etc/lirc/lircd.conf` file found on the Raspberry Pi
 
 ### User Accounts
-Simple implementation of user accounts have been included for universal-pi, however, this feature is currently in public beta.  Admin privileges have the capacity to remove other users.  
+Simple implementation of user accounts have been included for universal-pi, however, this feature is currently in public beta.  Admin privileges have the capacity to remove other users.
+
 Future versions would aim to add users to groups related to specific devices.  If a user didn't belong to a particular group, that user wouldn't be authorized to utilize that device.
 
 <a name="pi"></a>
