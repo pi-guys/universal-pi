@@ -8,12 +8,16 @@ Initial Raspberry Pi setup to interact with lirc requires very specific and some
 For convenience, commands are outlaid near the beginning of this readme.  
 
 ## Getting Started
-To install, simply clone down the project repo and use `npm i` to install dependencies listed in the `package.json` file.
+To install, simply clone down the project repo and use `npm i` to install dependencies listed in the `package.json` file.  Both of these commands will need to be performed on the Raspberry Pi as well.
 
 ### Interacting with a Device
-All commands are requested through a heroku endpoint.  Provided a device is configured ([see below at Raspberry Pi Setup](#pi)), and Raspberry Pi's IR transmitter is in reach of the device, requests can be made from a laptop anywhere with an internet connection.
+All commands are requested through a heroku endpoint.  Provided a device is configured ([see below at Raspberry Pi Setup](#pi)), and Raspberry Pi's IR transmitter is in reach of the device, requests can be made from a computer anywhere with an internet connection.
 
-For example:  using the command line, the following command would turn on/off the tv.
+Prior to submitting a command, the Raspberry Pi must be ready to receive.  To do so, run the following command from the Raspberry Pi in the project folder
+
+`node app`
+
+Then, simply perform a request from a computer. For example:  using the command line, the following command would turn on/off the tv.
 
 `curl https://universal-pi.herokuapp.com/api/remote/Vizio/KEY_POWER`
 
