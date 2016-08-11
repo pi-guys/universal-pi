@@ -13,17 +13,17 @@ To install, simply clone down the project repo and use `npm i` to install depend
 ### Interacting with a Device
 All commands are requested through a heroku endpoint.  Provided a device is configured ([see below at Raspberry Pi Setup](#pi)), and Raspberry Pi's IR transmitter is in reach of the device, requests can be made from a computer anywhere with an internet connection.
 
-Prior to submitting a command, the Raspberry Pi must be ready to receive.  To do so, run the following command from the Raspberry Pi in the project folder
+- Prior to submitting a command, the Raspberry Pi must be ready to receive.  To do so, run the following command from the Raspberry Pi in the project folder
 
-`node app`
+  `node app`
 
-Then, simply perform a request from a computer. For example:  using the command line, the following command would turn on/off the tv.
+- Then, simply perform a request from a computer. For example:  using the command line, the following command would turn on/off the tv.
 
-`curl https://universal-pi.herokuapp.com/api/remote/Vizio/KEY_POWER`
+  `curl https://universal-pi.herokuapp.com/api/remote/Vizio/KEY_POWER`
 
-For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command
+- For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command
 
-`node c key Vizio power`
+  `node c key Vizio power`
 
 ##### CLI Directions
   - `node` and `c` (the name of the CLI file) must always be the first two arguments
