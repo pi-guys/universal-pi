@@ -21,7 +21,7 @@ All commands are requested through a heroku endpoint.  Provided a device is conf
 
   `curl https://universal-pi.herokuapp.com/api/remote/Vizio/KEY_POWER`
 
-  For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command
+For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command
 
   `node c key Vizio power`
 
