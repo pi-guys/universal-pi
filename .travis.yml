@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 4
+  - "4"
 services:
   - mongodb
 addons:
@@ -18,8 +18,9 @@ env:
   - CXX=g++-4.8
 sudo: required
 install:
+  - npm i
   - npm install -g eslint mocha chai
 before_script: npm install
 script:
   - npm run test
-  - npm run lint
+  - npm eslint $(find . -name '*.js' | grep -v 'node_modules' | grep -v 'db')
