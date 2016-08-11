@@ -34,7 +34,7 @@ Simple implementation of user accounts have been included for universal-pi, howe
 Future versions would aim to add users to groups related to specific devices.  If a user didn't belong to a particular group, that user wouldn't be authorized to utilize that device.
 
 <a name="pi"></a>
-### Raspberry Pi Setup
+## Raspberry Pi Setup
 By nature, Raspberry Pi offers an incredibly diverse palette of implementation.  As such, it ships in a very customizable state--that being said, some initial customization is necessary in order to be prepped for universal-pi.
 
 Needed for lirc to function is an IR transmitter connected to the Raspberry Pi, this is a very simple solution [Raspberry Pi IR Shield](https://www.amazon.com/Infrared-Shield-Raspberry-Pi/dp/B01C2AQL62).
@@ -128,6 +128,7 @@ Below are the quickstart directions to be completed in the command line for gett
     - Configuring a Remote
 
       -  The below commands will free up the lirc driver for recording, create a new configuration file, and restart the lirc driver to be used again
+
         ```
         sudo /etc/init.d/lirc stop
         irrecord -d /dev/lirc0 ~/lircd.conf
