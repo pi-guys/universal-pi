@@ -154,11 +154,14 @@ describe('it should send commands to the remote', () => {
   before((done) => {
     server.listen(PORT, () => {
       console.log('server is up on ' + PORT);
+      mongoose.connect(process.env.MONGODB_TEST);
       done();
     });
   });
   after((done) => {
-    server.close(done);
+    mongoose.connection.db.dropDatabase(() => {
+      server.close(done);
+    });
   });
 
   it('/POST should send the command to the device', (done) => {
