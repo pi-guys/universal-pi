@@ -177,13 +177,4 @@ describe('it should send commands to the remote', () => {
         done();
       });
   });
-  it('/POST should reply with a 404 error if button does not exist', (done) => {
-    request(baseUrl)
-      .post('/remote/Vizio/power_on')
-      .end((err, res) => {
-        expect(err.status).to.eql(404);
-        expect(res.text).to.have.string('not found');
-        done();
-      });
-  });
 });
