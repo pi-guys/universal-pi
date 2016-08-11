@@ -56,3 +56,7 @@ userRouter.delete('/:id', jwtAuth, auth, (req, res, next) => {
     }
   });
 });
+
+userRouter.use((req, res, next) => {
+  next(AppError.error404('Specified request not found.'));
+});
