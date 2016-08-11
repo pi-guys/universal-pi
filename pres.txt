@@ -1,0 +1,13 @@
+curl -H 'Content-Type: application/json' -X POST -d '{"username":"pikachu","password":"ichooseyou"}' https://universal-pi.herokuapp.com/api/user/signup
+
+node c signin pikachu ichooseyou
+
+export TOLKIEN=
+
+http DELETE https://universal-pi.herokuapp.com/api/user/pikachu Authorization:'Bearer TOLKIEN'
+
+node c key Vizio power
+
+node c key Vizio n
+
+node c key Vizio enter
