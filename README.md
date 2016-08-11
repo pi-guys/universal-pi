@@ -1,6 +1,7 @@
 # universal-pi
 
 universal-pi is an application that adapts signals sent from infrared remotes and combines them into one interface.  Remotes are configured via lirc, a linux-based package for interpreting infrared signals, and signals are sent via a Raspberry Pi to a specified device.  
+
 Remote commands can be initiated by making http requests to https://universal-pi.herokuapp.com at remote-specific endpoints.  
 
 Initial Raspberry Pi setup to interact with lirc requires very specific and somewhat verbose instructions--those can be found at the bottom of the readme file.
@@ -20,7 +21,7 @@ For simplicity, a command line interface (CLI) has been created.  With the proje
 
 `node c key Vizio power`
 
-###### CLI Directions
+##### CLI Directions
   - `node` and `c` (the name of the CLI file) must always be the first two arguments
   -  `key` as the third argument, indicates that a remote command will be used
   - The fourth argument refers to the device, in this case, the `Vizio` tv
@@ -40,14 +41,16 @@ Needed for lirc to function is an IR transmitter connected to the Raspberry Pi, 
 
 Below are the quickstart directions to be completed in the command line for getting a Raspberry Pi ready for universal-pi.
 
-##### Pi Pre-Prep, Presuming the Raspbian OS
+#### Pi Pre-Prep, Presuming the Raspbian OS
   - Update Raspbian to the Latest Version
+
     ```
     sudo apt-get update
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
     ```
   - Upgrade Raspberry Pi Firmware
+
     ```
     sudo apt-get install git-core
     sudo wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
@@ -60,11 +63,11 @@ Below are the quickstart directions to be completed in the command line for gett
     `sudo apt-get install lirc`
   - lirc Configuration Files
    - Make sure the following lines are included in the `/etc/modules` file
-   ```
-   12c-dev
-   lirc_dev
-   lirc_rpi
-   ```
+     ```
+     12c-dev
+     lirc_dev
+     lirc_rpi
+     ```
    - Modify the `/etc/lirc/hardware.conf` file in a text editor (default Leafpad) to appear as below
       ```
       # /etc/lirc/hardware.conf
@@ -108,10 +111,10 @@ Below are the quickstart directions to be completed in the command line for gett
     `sudo reboot`
   - Initializing a Remote
     - To test that an IR receiver is properly connected to the Raspberry Pi, type the following commands into the command line then aim a remote at the IR receiver and press any button on the remote
-    ```
-    sudo /etc/init.d/lirc stop
-    mode2 -d /dev/lirc0
-    ```
+      ```
+      sudo /etc/init.d/lirc stop
+      mode2 -d /dev/lirc0
+      ```
 
       The command line should output several lines similar to below
       ```
@@ -125,10 +128,10 @@ Below are the quickstart directions to be completed in the command line for gett
     - Configuring a Remote
 
       -  The below commands will free up the lirc driver for recording, create a new configuration file, and restart the lirc driver to be used again
-      ```
-      sudo /etc/init.d/lirc stop
-      irrecord -d /dev/lirc0 ~/lircd.conf
-      sudo mv /etc/lirc/lircd.conf /etc/lirc/lircd_original.conf
-      sudo cp ~/lircd.conf /etc/lirc/lircd.conf
-      sudo /etc/init.d/lirc start
-      ```
+        ```
+        sudo /etc/init.d/lirc stop
+        irrecord -d /dev/lirc0 ~/lircd.conf
+        sudo mv /etc/lirc/lircd.conf /etc/lirc/lircd_original.conf
+        sudo cp ~/lircd.conf /etc/lirc/lircd.conf
+        sudo /etc/init.d/lirc start
+        ```
