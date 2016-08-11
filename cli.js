@@ -9,7 +9,11 @@ if (args.length < 1) {
 }
 switch (args[0]) {
 case 'signup':
+<<<<<<< HEAD
   call = `curl -H 'Content-Type: application/json' -X POST -d '{"username":"` + args[1] + `","password":"` + args[2] + `"}' https://universal-pi.herokuapp.com/api/user/signup`;
+=======
+  call = 'curl -H \'Content-Type: application/json\' -X POST -d \'{"username":"' + args[1] + '","password":"' + args[2] + '"}\' https://universal-pi.herokuapp.com/api/user/signup';
+>>>>>>> 501af3e0b7d713d1d453c96ed12b3ac2aaeb2274
   break;
 case 'signin':
   call = 'curl --user ' + args[1] + ':' + args[2] + ' https://universal-pi.herokuapp.com/api/user/signin';
