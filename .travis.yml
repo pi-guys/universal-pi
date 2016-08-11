@@ -18,7 +18,6 @@ env:
   - CXX=g++-4.8
 sudo: required
 install:
-  - npm i
   - npm install -g eslint mocha chai
 before_script: npm install
 script:
