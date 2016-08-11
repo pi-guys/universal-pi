@@ -28,19 +28,19 @@ For simplicity, a command line interface (CLI) has been created.  With the proje
 
   An example list of all buttons configured to this device can be found in the project at `programmed_buttons.txt`, this listing mirrors the `/etc/lirc/lircd.conf` file found on the Raspberry Pi
 
-#### User Accounts
+### User Accounts
 Simple implementation of user accounts have been included for universal-pi, however, this feature is currently in public beta.  Admin privileges have the capacity to remove other users.  
 Future versions would aim to add users to groups related to specific devices.  If a user didn't belong to a particular group, that user wouldn't be authorized to utilize that device.
 
 <a name="pi"></a>
-##### Raspberry Pi Setup
+### Raspberry Pi Setup
 By nature, Raspberry Pi offers an incredibly diverse palette of implementation.  As such, it ships in a very customizable state--that being said, some initial customization is necessary in order to be prepped for universal-pi.
 
 Needed for lirc to function is an IR transmitter connected to the Raspberry Pi, this is a very simple solution [Raspberry Pi IR Shield](https://www.amazon.com/Infrared-Shield-Raspberry-Pi/dp/B01C2AQL62).
 
 Below are the quickstart directions to be completed in the command line for getting a Raspberry Pi ready for universal-pi.
 
-###### Pi Pre-Prep, Presuming the Raspbian OS
+##### Pi Pre-Prep, Presuming the Raspbian OS
   - Update Raspbian to the Latest Version
     ```
     sudo apt-get update
