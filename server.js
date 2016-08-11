@@ -1,1 +1,1 @@
-require('./lib/_server.js').listen(process.env.PORT, ()=> console.log('server up'));
+require('./lib/_server.js').listen(process.env.PORT || 3000, ()=> console.log('server up'));
