@@ -165,13 +165,4 @@ describe('it should send commands to the remote', () => {
         done();
       });
   });
-  it('/POST should reply with a 404 error when an invalid body is provided', (done) => {
-    request(baseUrl)
-      .post('/remote/Samsung/')
-      .end((err, res) => {
-        expect(err.status).to.eql(404);
-        expect(res.text).to.have.string('Please specify a remote');
-        done();
-      });
-  });
 });
