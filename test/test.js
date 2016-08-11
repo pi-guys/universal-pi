@@ -38,12 +38,8 @@ describe('test SIGNUP with user routes', () => {
       .send({username: 'luke', password: 'skywalker'})
       .end((err) => {
         if (err) console.log(err);
-        User.find({username: 'luke'}, (err, user) => {
-          if (err) console.log(err);
-          testUserId = user.toString().slice(7, 31);
-        });
+        done();
       });
-    done();
   });
   after((done) => {
     mongoose.connection.db.dropDatabase(() => {
