@@ -12,7 +12,6 @@ const AppError = require('../lib/app_error.js');
 const lirc = require('lirc_node');
 lirc.init();
 
-const remoteRouter = require('../route/remote_router.js');
 const userRouter = require('../route/user_router.js');
 
 mongoose.connect('mongodb://localhost/dev_test');
@@ -34,11 +33,9 @@ app.use('/api/remote/:name/:button', (req, res, next) => {
   next();
 });
 
-app.use('/api/remote', remoteRouter);
 app.use('/api/user', userRouter);
 
 app.use((err, req, res, next) => {
-  console.log(err);
   res.status(err.statusCode || 500).send(err.message || 'Database error.');
   next();
 });
