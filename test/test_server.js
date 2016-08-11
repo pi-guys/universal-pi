@@ -15,7 +15,7 @@ lirc.init();
 const remoteRouter = require('../route/remote_router.js');
 const userRouter = require('../route/user_router.js');
 
-// mongoose.connect('mongodb://localhost/dev_test');
+mongoose.connect('mongodb://localhost/dev_test');
 
 app.use(errorHandler());
 

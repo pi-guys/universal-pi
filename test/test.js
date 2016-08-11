@@ -10,7 +10,7 @@ const server = require('./test_server');
 const baseUrl = 'localhost:5000/api';
 const User = require('../model/user');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000
 
 process.env.APP_SECRET = 'testmenow';
 process.env.MONGODB_TEST = 'mongodb://localhost/dev_test';
@@ -22,8 +22,7 @@ let testUserId;
 describe('test SIGNUP with user routes', () => {
   before((done) => {
     server.listen(PORT, () => {
-      mongoose.connect(process.env.MONGODB_TEST);
-      console.log('server is up on ' + PORT);
+      console.log('server is up on 5000');
     });
     request(baseUrl)
       .post('/user/signup')
@@ -153,15 +152,12 @@ describe('test SIGNUP with user routes', () => {
 describe('it should send commands to the remote', () => {
   before((done) => {
     server.listen(PORT, () => {
-      console.log('server is up on ' + PORT);
-      mongoose.connect(process.env.MONGODB_TEST);
+      console.log('server is up on 5000');
       done();
     });
   });
   after((done) => {
-    mongoose.connection.db.dropDatabase(() => {
-      server.close(done);
-    });
+    server.close(done);
   });
 
   it('/POST should send the command to the device', (done) => {
