@@ -10,16 +10,17 @@ const server = require('./test_server');
 const baseUrl = 'localhost:5000/api';
 const User = require('../model/user');
 
+const PORT = process.env.PORT || 5000;
+
 process.env.APP_SECRET = 'testmenow';
 process.env.MONGODB_TEST = 'mongodb://localhost/dev_test';
 
 let testToken;
 let testFalseToken;
-let testUserId;
 
 describe('test SIGNUP with user routes', () => {
   before((done) => {
-    server.listen(5000, () => {
+    server.listen(PORT, () => {
       console.log('server is up on 5000');
     });
     request(baseUrl)
@@ -37,12 +38,8 @@ describe('test SIGNUP with user routes', () => {
       .send({username: 'luke', password: 'skywalker'})
       .end((err) => {
         if (err) console.log(err);
-        User.find({username: 'luke'}, (err, user) => {
-          if (err) console.log(err);
-          testUserId = user.toString().slice(7, 31);
-        });
+        done();
       });
-    done();
   });
   after((done) => {
     mongoose.connection.db.dropDatabase(() => {
@@ -117,7 +114,7 @@ describe('test SIGNUP with user routes', () => {
 
   it('/DELETE should remove the specified user', (done) => {
     request(baseUrl)
-      .delete('/user/' + testUserId)
+      .delete('/user/luke')
       .set('Authorization', 'Bearer ' + testToken)
       .end((err, res) => {
         expect(err).to.eql(null);
@@ -127,7 +124,7 @@ describe('test SIGNUP with user routes', () => {
   });
   it('/DELETE should reply with error 401 if user is unauthorized', (done) => {
     request(baseUrl)
-    .delete('/user/' + testUserId)
+    .delete('/user/darthvader')
     .set('Authorization', 'Bearer ' + testFalseToken)
     .end((err, res) => {
       expect(err.status).to.eql(401);
@@ -137,7 +134,7 @@ describe('test SIGNUP with user routes', () => {
   });
   it('/DELETE should reply with error 400 if user not found', (done) => {
     request(baseUrl)
-      .delete('/user/' + testUserId)
+      .delete('/user/hansolo')
       .set('Authorization', 'Bearer ' + testToken)
       .end((err, res) => {
         expect(err.status).to.eql(400);
@@ -149,7 +146,7 @@ describe('test SIGNUP with user routes', () => {
 
 describe('it should send commands to the remote', () => {
   before((done) => {
-    server.listen(5000, () => {
+    server.listen(PORT, () => {
       console.log('server is up on 5000');
       done();
     });

@@ -41,14 +41,14 @@ userRouter.get('/signin', BasicHTTP, (req, res, next) => {
   });
 });
 
-userRouter.delete('/:id', jwtAuth, auth, (req, res, next) => {
-  User.findOne({'_id': req.params.id}, (err, user) => {
+userRouter.delete('/:username', jwtAuth, auth, (req, res, next) => {
+  User.findOne({username: req.params.username}, (err, user) => {
     if (err) return next(AppError.error400('No user found.'));
     console.log(user);
     if (!user || user === null) {
       return next(AppError.error400('No user found.'));
     } else {
-      user.remove({'_id': req.params.id}, (err) => {
+      user.remove({username: req.params.username}, (err) => {
         if (err) next(AppError.error400('Bad request.'));
         console.log('removing ' + user.username);
         res.send('Deleted user');
