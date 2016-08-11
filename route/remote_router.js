@@ -4,9 +4,9 @@ const lirc = require('lirc_node');
 const AppError = require('../lib/app_error.js');
 lirc.init();
 
-let router = module.exports = exports = new Router();
+let remoteRouter = module.exports = exports = new Router();
 
-router.get('/all', (req, res) => {
+remoteRouter.get('/all', (req, res) => {
   if (!lirc.remotes.Vizio || lirc.remotes.Vizio === null) {
     console.log('No remotes exist on this server.');
     return res.sendError(AppError.error400('No remotes found.'));
@@ -14,7 +14,7 @@ router.get('/all', (req, res) => {
   return res.status(200).json(lirc.remotes);
 });
 
-router.get('/:name', (req, res) => {
+remoteRouter.get('/:name', (req, res) => {
   console.log(lirc.remotes[req.params.remote]);
   if (!req.params.name || req.params.name === null) {
     return res.sendError(AppError.error400('Remote does not yet exist on server.'));
@@ -25,6 +25,6 @@ router.get('/:name', (req, res) => {
   return res.status(200).json(lirc.remotes[req.params.remote]);
 });
 
-router.all((req, res, next) => {
+remoteRouter.use((req, res, next) => {
   next(AppError.error404('Please specify a remote to use by setting your endpoint to "/api/remote/remote-name".'));
 });

@@ -38,7 +38,8 @@ app.use('/api/remote', remoteRouter);
 app.use('/api/user', userRouter);
 
 app.use((err, req, res, next) => {
-  res.status(err.statusCode || 500).send(err.message || 'Database error');
+  console.log(err);
+  res.status(err.statusCode || 500).send(err.message || 'Database error.');
   next();
 });
 
