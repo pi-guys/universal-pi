@@ -17,7 +17,6 @@ process.env.MONGODB_TEST = 'mongodb://localhost/dev_test';
 
 let testToken;
 let testFalseToken;
-let testUserId;
 
 describe('test SIGNUP with user routes', () => {
   before((done) => {
@@ -119,7 +118,7 @@ describe('test SIGNUP with user routes', () => {
 
   it('/DELETE should remove the specified user', (done) => {
     request(baseUrl)
-      .delete('/user/' + testUserId)
+      .delete('/user/luke')
       .set('Authorization', 'Bearer ' + testToken)
       .end((err, res) => {
         expect(err).to.eql(null);
@@ -129,7 +128,7 @@ describe('test SIGNUP with user routes', () => {
   });
   it('/DELETE should reply with error 401 if user is unauthorized', (done) => {
     request(baseUrl)
-    .delete('/user/' + testUserId)
+    .delete('/user/darthvader')
     .set('Authorization', 'Bearer ' + testFalseToken)
     .end((err, res) => {
       expect(err.status).to.eql(401);
@@ -139,7 +138,7 @@ describe('test SIGNUP with user routes', () => {
   });
   it('/DELETE should reply with error 400 if user not found', (done) => {
     request(baseUrl)
-      .delete('/user/' + testUserId)
+      .delete('/user/hansolo')
       .set('Authorization', 'Bearer ' + testToken)
       .end((err, res) => {
         expect(err.status).to.eql(400);
