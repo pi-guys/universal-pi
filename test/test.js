@@ -105,6 +105,15 @@ describe('test SIGNUP with user routes', () => {
         done();
       });
   });
+  it('/GET should reply with a 404 error if page does not exist', (done) => {
+    request(baseUrl)
+      .get('/user/sign')
+      .end((err, res) => {
+        expect(err.status).to.eql(404);
+        expect(res.text).to.have.string('not found');
+        done();
+      });
+  });
 
   it('/DELETE should remove the specified user', (done) => {
     request(baseUrl)
@@ -159,12 +168,21 @@ describe('it should send commands to the remote', () => {
         done();
       });
   });
-  it('/POST should reply with a 400 error bad request', (done) => {
+  it('/POST should reply with a 404 error when an invalid body is provided', (done) => {
     request(baseUrl)
-      .post('/remote/Samsung/KEY_POWER')
+      .post('/remote/Samsung/')
       .end((err, res) => {
-        expect(err.status).to.eql(400);
-        expect(res.body).to.eql('Bad request.');
+        expect(err.status).to.eql(404);
+        expect(res.text).to.have.string('Please specify a remote');
+        done();
+      });
+  });
+  it('/POST should reply with a 404 error if button does not exist', (done) => {
+    request(baseUrl)
+      .post('/remote/Vizio/power_on')
+      .end((err, res) => {
+        expect(err.status).to.eql(404);
+        expect(res.text).to.have.string('not found');
         done();
       });
   });
