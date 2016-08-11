@@ -48,7 +48,7 @@ userRouter.delete('/:username', jwtAuth, auth, (req, res, next) => {
     if (!user || user === null) {
       return next(AppError.error400('No user found.'));
     } else {
-      user.remove({username: req.params.username}, (err) => {
+      User.remove({username: req.params.username}, (err) => {
         if (err) next(AppError.error400('Bad request.'));
         console.log('removing ' + user.username);
         res.send('Deleted user');
