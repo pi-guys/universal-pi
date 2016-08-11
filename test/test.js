@@ -47,8 +47,7 @@ describe('test SIGNUP with user routes', () => {
   after((done) => {
     mongoose.connection.db.dropDatabase(() => {
       console.log('test_db dropped');
-      server.close();
-      done();
+      server.close(done);
     });
   });
 
@@ -134,6 +133,38 @@ describe('test SIGNUP with user routes', () => {
       .end((err, res) => {
         expect(err.status).to.eql(400);
         expect(res.text).to.eql('No user found.');
+        done();
+      });
+  });
+});
+
+describe('it should send commands to the remote', () => {
+  before((done) => {
+    server.listen(5000, () => {
+      console.log('server is up on 5000');
+      done();
+    });
+  });
+  after((done) => {
+    server.close(done);
+  });
+
+  it('/POST should send the command to the device', (done) => {
+    request(baseUrl)
+      .post('/remote/Vizio/KEY_POWER')
+      .end((err, res) => {
+        expect(err).to.eql(null);
+        expect(res.text).to.have.string('Vizio');
+        expect(res.text).to.have.string('KEY_POWER');
+        done();
+      });
+  });
+  it('/POST should reply with a 400 error bad request', (done) => {
+    request(baseUrl)
+      .post('/remote/Samsung/KEY_POWER')
+      .end((err, res) => {
+        expect(err.status).to.eql(400);
+        expect(res.body).to.eql('Bad request.');
         done();
       });
   });
