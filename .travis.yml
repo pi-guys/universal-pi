@@ -5,10 +5,10 @@ services:
   - mongodb
 addons:
   apt:
-    sources:
-    - mongodb-3.2.4-precise
-    packages:
-    - mongodb-org-server
+    # sources:
+    # - mongodb-3.2.4-precise
+    # packages:
+    # - mongodb-org-server
     sources:
     - ubuntu-toolchain-r-test
     packages:
@@ -22,4 +22,4 @@ install:
 before_script: npm install
 script:
   - npm run test
-  - npm eslint $(find . -name '*.js' | grep -v 'node_modules' | grep -v 'db')
+  - eslint $(find . -name '*.js' | grep -v 'node_modules' | grep -v 'db')

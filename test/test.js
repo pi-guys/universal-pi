@@ -22,6 +22,7 @@ let testUserId;
 describe('test SIGNUP with user routes', () => {
   before((done) => {
     server.listen(PORT, () => {
+      mongoose.connect(process.env.MONGODB_TEST);
       console.log('server is up on ' + PORT);
     });
     request(baseUrl)
