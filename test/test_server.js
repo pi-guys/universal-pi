@@ -7,7 +7,7 @@ const io = require('socket.io')(server);
 
 if (!process.env.APP_SECRET) process.env.APP_SECRET = 'shouldvegotoscar';
 
-const errorHandler = require('./error_handler.js');
+const errorHandler = require('../lib/error_handler.js');
 const AppError = require('../lib/app_error.js');
 const lirc = require('lirc_node');
 lirc.init();
@@ -15,7 +15,7 @@ lirc.init();
 const remoteRouter = require('../route/remote_router.js');
 const userRouter = require('../route/user_router.js');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/users_dev');
+mongoose.connect('mongodb://localhost/dev_test');
 
 app.use(errorHandler());
 
