@@ -4,7 +4,7 @@ universal-pi is an application that adapts signals sent from infrared remotes an
 
 Remote commands can be initiated by making http requests to https://universal-pi.herokuapp.com at remote-specific endpoints.  
 
-Initial Raspberry Pi setup to interact with lirc requires very specific and somewhat verbose instructions--those can be found at the bottom of the readme file.
+Initial Raspberry Pi setup to interact with lirc requires very specific and somewhat verbose instructions--[those](#pi) can be found at the bottom of the readme file.
 For convenience, commands are outlaid near the beginning of this readme.  
 
 ## Getting Started
@@ -21,7 +21,7 @@ All commands are requested through a heroku endpoint.  Provided a device is conf
 
   `curl https://universal-pi.herokuapp.com/api/remote/Vizio/KEY_POWER`
 
-For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command
+For simplicity, a command line interface (CLI) has been created.  With the project directory as the present working directory, the following line would execute the same command.
 
   `node c key Vizio power`
 
@@ -34,7 +34,7 @@ For simplicity, a command line interface (CLI) has been created.  With the proje
   An example list of all buttons configured to this device can be found in the project at `programmed_buttons.txt`, this listing mirrors the `/etc/lirc/lircd.conf` file found on the Raspberry Pi
 
 ### User Accounts
-Simple implementation of user accounts have been included for universal-pi, however, this feature is currently in public beta.  Admin privileges have the capacity to remove other users.
+Simple implementation of user accounts has been included for universal-pi; however, this feature is currently in public beta.  Admin privileges grant the capacity to remove other users.
 
 Future versions would aim to add users to groups related to specific devices.  If a user didn't belong to a particular group, that user wouldn't be authorized to utilize that device.
 
@@ -42,7 +42,7 @@ Future versions would aim to add users to groups related to specific devices.  I
 ## Raspberry Pi Setup
 By nature, Raspberry Pi offers an incredibly diverse palette of implementation.  As such, it ships in a very customizable state--that being said, some initial customization is necessary in order to be prepped for universal-pi.
 
-Needed for lirc to function is an IR transmitter connected to the Raspberry Pi, this is a very simple solution [Raspberry Pi IR Shield](https://www.amazon.com/Infrared-Shield-Raspberry-Pi/dp/B01C2AQL62).
+Needed for lirc to function is an IR transmitter connected to the Raspberry Pi, this is a very simple solution: [Raspberry Pi IR Shield](https://www.amazon.com/Infrared-Shield-Raspberry-Pi/dp/B01C2AQL62).
 
 Below are the quickstart directions to be completed in the command line for getting a Raspberry Pi ready for universal-pi.
 
@@ -67,13 +67,14 @@ Below are the quickstart directions to be completed in the command line for gett
 
     `sudo apt-get install lirc`
   - lirc Configuration Files
-   - Make sure the following lines are included in the `/etc/modules` file
-     ```
-     12c-dev
-     lirc_dev
-     lirc_rpi
-     ```
-   - Modify the `/etc/lirc/hardware.conf` file in a text editor (default Leafpad) to appear as below
+    - Make sure the following lines are included in the `/etc/modules` file
+
+    ```
+    12c-dev
+    lirc_dev
+    lirc_rpi
+    ```
+    - Modify the `/etc/lirc/hardware.conf` file in a text editor (default Leafpad) to appear as below
       ```
       # /etc/lirc/hardware.conf
       #
@@ -111,9 +112,9 @@ Below are the quickstart directions to be completed in the command line for gett
       dtoverlay=lirc-rpi
       ```
 
-  - Restart the Raspberry Pi for the configurations to take effect
+    - Restart the Raspberry Pi for the configurations to take effect
 
-    `sudo reboot`
+      `sudo reboot`
   - Initializing a Remote
     - To test that an IR receiver is properly connected to the Raspberry Pi, type the following commands into the command line then aim a remote at the IR receiver and press any button on the remote
       ```
