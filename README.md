@@ -142,3 +142,4 @@ Below are the quickstart directions to be completed in the command line for gett
         sudo cp ~/lircd.conf /etc/lirc/lircd.conf
         sudo /etc/init.d/lirc start
         ```
+[![Build Status](https://travis-ci.org/pi-guys/universal-pi.svg?branch=master)](https://travis-ci.org/pi-guys/universal-pi)

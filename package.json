@@ -1,7 +1,7 @@
 {
   "name": "universal-pi",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a fantastic project!",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/pi-guys/universal-pi.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Shane, James and Gupreet",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pi-guys/universal-pi/issues"

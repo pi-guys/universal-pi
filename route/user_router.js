@@ -21,16 +21,20 @@ userRouter.post('/signup', jsonParser, (req, res, next) => {
       newUser.save((err, user) => {
         if (user === null) return next(AppError.error500('Database error.'));
         if (err) return next(AppError.error400('A user with that name already exists.'));
-        console.log('new user\n' + user);
+        //This console log is a security problem because you see all your users list in travis-ci
+        //which is publically viewable
+        //console.log('new user\n' + user);
         res.json(tokenData);
       });
     });
 });
 
 userRouter.get('/signin', BasicHTTP, (req, res, next) => {
+  //you might want different errors for user not found vs password failed
+  //and log this because this is where you might see someone trying to hack your remote
   let authError = AppError.error401('Authentication failed.');
   console.log(req.auth.username);
-  User.findOne({username: req.auth.username}, (err, user) => {
+  User.findOne({ username: req.auth.username }, (err, user) => {
     if (!user) next(authError);
     if (err) next(authError);
     user.comparePassword(req.auth.password)
@@ -42,21 +46,22 @@ userRouter.get('/signin', BasicHTTP, (req, res, next) => {
 });
 
 userRouter.delete('/:username', jwtAuth, auth, (req, res, next) => {
-  User.findOne({username: req.params.username}, (err, user) => {
+  User.findOne({ username: req.params.username }, (err, user) => {
     if (err) return next(AppError.error400('No user found.'));
     console.log(user);
     if (!user || user === null) {
       return next(AppError.error400('No user found.'));
     } else {
-      user.remove({username: req.params.username}, (err) => {
+      user.remove({ username: req.params.username }, (err) => {
         if (err) next(AppError.error400('Bad request.'));
-        console.log('removing ' + user.username);
+        //console.log('removing ' + user.username);
         res.send('Deleted user');
       });
     }
   });
 });
 
+//not sure what this route does except generate error?
 userRouter.use((req, res, next) => {
   next(AppError.error404('Specified request not found.'));
 });
